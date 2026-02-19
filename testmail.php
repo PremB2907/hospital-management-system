@@ -11,13 +11,13 @@ $mail = new PHPMailer(true);
 $mail->isSMTP();
 $mail->Host = 'smtp.gmail.com';
 $mail->SMTPAuth = true;
-$mail->Username = 'prem.baraskar24@sakec.ac.in';
-$mail->Password = 'ngkg qoep tgel hoys'; // 16-char app password
+$mail->Username = '';
+$mail->Password = ''; // 16-char app password
 $mail->SMTPSecure = 'tls';
 $mail->Port = 587;
 
-$mail->setFrom('prem.baraskar24@sakec.ac.in', 'Global Hospitals');
-$mail->addAddress('manthan.warandekar24@sakec.ac.in');
+$mail->setFrom('', 'Global Hospitals');
+$mail->addAddress('');
 
 $mail->Subject = 'Test Mail';
 $mail->Body = 'Email service is working';
