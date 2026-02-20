@@ -1,91 +1,279 @@
-# Hospital Management System (Simple HMS)
+# 🏥 Hospital Management System
 
-A lightweight PHP-based hospital management system intended for local development (XAMPP). It provides patient and doctor management, appointment handling, prescription generation, search utilities, and email notification support.
+### Role-Based PHP + MySQL Web Application
 
-**Features:**
-- **Patient registration:** Create and manage patient records.
-- **Doctor management:** Add/remove doctors and view doctor lists.
-- **Appointments & prescriptions:** Create and view prescriptions and appointment records.
-- **Search:** Search patients, doctors, messages, and prescriptions.
-- **Email updates (added):** Sends notification emails (e.g., when adding a doctor or registering a patient).
+![PHP](https://img.shields.io/badge/PHP-8.x-blue)
+![MySQL](https://img.shields.io/badge/MySQL-Database-orange)
+![Bootstrap](https://img.shields.io/badge/Bootstrap-UI-purple)
+![XAMPP](https://img.shields.io/badge/XAMPP-Local%20Server-red)
+![License](https://img.shields.io/badge/License-MIT-green)
+![Status](https://img.shields.io/badge/Status-Active-success)
 
-**Tech stack:**
-- PHP
-- MySQL
-- PHPMailer (vendor/PHPMailer)
-- Bootstrap + jQuery for UI
+A full-stack **Hospital Management System (HMS)** built using **PHP, MySQL, Bootstrap, and JavaScript**.
+It supports role-based authentication for **Patients, Doctors, and Admin**, and provides complete appointment and record management.
 
-**Quick start (local / XAMPP)**
+---
 
-1. Place the project folder in your webroot (e.g., `C:\xampp\htdocs\hospital`).
-2. Start Apache and MySQL from the XAMPP control panel.
-3. Create a MySQL database and import `myhmsdb.sql`.
-4. Open `http://localhost/hospital` in your browser.
+# 🚀 Features
 
-If you need dependencies:
+## 👤 Patient Module
 
-```bash
-composer install
+* Registration & Login
+* Book Appointment
+* View Appointment History
+* Cancel Appointments
+* View Prescriptions
+
+## 🩺 Doctor Module
+
+* Secure Login
+* View Assigned Appointments
+* Search Patients
+* Manage Appointment Records
+
+## 🛠 Admin Module
+
+* Manage Patients
+* Add / Remove Doctors
+* View & Manage Appointments
+* Update Payment Status
+* Review Feedback
+* Optional Email Notifications
+
+---
+
+# 🛠 Tech Stack
+
+| Layer    | Technology                         |
+| -------- | ---------------------------------- |
+| Frontend | HTML5, CSS3, Bootstrap, JavaScript |
+| Backend  | PHP                                |
+| Database | MySQL                              |
+| Server   | XAMPP (Apache + MySQL)             |
+| PDF      | TCPDF                              |
+| Email    | PHPMailer (Optional)               |
+
+---
+
+# 📸 Screenshots
+
+## 🏠 Home Page
+
+*Add your screenshot here*
+
+```
+assets/screenshots/home.png
 ```
 
-**Configuration**
+## 👤 Patient Dashboard
 
-- **Database:** Edit the DB settings in [include/config.php](include/config.php) to match your MySQL credentials.
+*Add your screenshot here*
 
-- **SMTP / Email:** Email sending is handled by the helper in [include/mail.php](include/mail.php). By default it uses PHPMailer + SMTP (Gmail example). Open that file and update these settings or, better, modify it to load credentials from environment variables:
+```
+assets/screenshots/patient-dashboard.png
+```
+
+## 🩺 Doctor Dashboard
+
+*Add your screenshot here*
+
+```
+assets/screenshots/doctor-dashboard.png
+```
+
+## 🛠 Admin Panel
+
+*Add your screenshot here*
+
+```
+assets/screenshots/admin-panel.png
+```
+
+To display screenshots in GitHub:
+
+```markdown
+![Home](assets/screenshots/home.png)
+```
+
+---
+
+# ⚙️ Installation Guide
+
+## 1️⃣ Clone Repository
+
+```bash
+git clone https://github.com/yourusername/hospital-management-system.git
+```
+
+Move project to:
+
+```
+C:\xampp\htdocs\
+```
+
+---
+
+## 2️⃣ Start Services
+
+Start from XAMPP:
+
+* Apache
+* MySQL
+
+---
+
+## 3️⃣ Setup Database
+
+1. Open `http://localhost/phpmyadmin`
+2. Create database:
+
+```
+myhmsdb
+```
+
+3. Import:
+
+```
+myhmsdb.sql
+```
+
+---
+
+## 4️⃣ Run Project
+
+```
+http://localhost/hospital
+```
+
+---
+
+# 🔐 Default Admin Login
+
+```
+Username: admin
+Password: admin123
+```
+
+---
+
+# 📧 Email Configuration (Optional)
+
+Edit:
+
+```
+include/mail.php
+```
+
+Example SMTP setup:
 
 ```php
-// in include/mail.php (example)
 $mail->Host = 'smtp.gmail.com';
 $mail->SMTPAuth = true;
-$mail->Username = 'your-email@example.com';
-$mail->Password = 'your-smtp-password-or-app-password';
+$mail->Username = 'your-email@gmail.com';
+$mail->Password = 'your-app-password';
 $mail->SMTPSecure = 'tls';
 $mail->Port = 587;
 ```
 
-Important: Do NOT commit real credentials. Use app passwords or a dedicated SMTP account and store secrets outside the repository.
-
-**Email updates — how to use**
-
-- The helper function `sendMail($to, $subject, $body)` is defined in [include/mail.php](include/mail.php).
-- Common trigger points include: `func.php` and `admin-panel1.php` where a new doctor or user registration may call the mail helper.
-
-To send an email from your code:
-
-```php
-require_once 'include/mail.php';
-sendMail('recipient@example.com', 'Subject here', '<p>A short HTML message</p>');
-```
-
-**Security recommendations**
-
-- Move SMTP/database credentials to environment variables and read them in your PHP code.
-- Use an app-specific password for Gmail; consider a transactional provider (SendGrid/Mailgun) for production.
-- Hash passwords (bcrypt) instead of storing plaintext.
-
-**Where to look in the code**
-- Main pages: `index.php`, `admin-panel.php`, `doctor-panel.php`
-- Helpers: `func.php`, `newfunc.php`
-- DB config: [include/config.php](include/config.php)
-- Mail helper: [include/mail.php](include/mail.php)
-- SQL schema: `myhmsdb.sql`
-
-**Troubleshooting**
-
-- If email sending fails, temporarily enable PHPMailer debug output in [include/mail.php](include/mail.php):
-
-```php
-$mail->SMTPDebug = 2; // debug output
-```
-
-- Verify DB connectivity in [include/config.php](include/config.php) and ensure MySQL is running.
-
-**Suggested next steps I can help with**
-- Move credentials into environment variables and update `include/mail.php` accordingly.
-- Remove plaintext SMTP credentials from the repo and replace with a secure loader.
-- Add a small admin UI to test SMTP settings.
+⚠️ Never commit real credentials.
 
 ---
 
-File created: `README_GENERATED.md` — let me know if you want this merged into `README.md` or prefer adjustments (language, more examples, screenshots).
+# 🛡 Security Improvements Recommended
+
+* Use `password_hash()` instead of plain text passwords
+* Implement prepared statements
+* Move credentials to environment variables
+* Enable HTTPS
+* Add CSRF protection
+
+---
+
+# 🤝 Contribution Guidelines
+
+Contributions are welcome!
+
+### Steps to Contribute:
+
+1. Fork the repository
+2. Create a new branch:
+
+```bash
+git checkout -b feature-name
+```
+
+3. Make your changes
+4. Commit:
+
+```bash
+git commit -m "Added new feature"
+```
+
+5. Push:
+
+```bash
+git push origin feature-name
+```
+
+6. Open a Pull Request
+
+---
+
+# 📜 License
+
+This project is licensed under the **MIT License**.
+
+You are free to:
+
+* Use
+* Modify
+* Distribute
+
+As long as proper credit is given.
+
+Create a file named `LICENSE` and add:
+
+```
+MIT License
+
+Copyright (c) 2026 Prem B
+
+Permission is hereby granted, free of charge, to any person obtaining a copy...
+```
+
+(Full MIT license text can be copied from opensource.org)
+
+---
+
+# 📈 Future Enhancements
+
+* Appointment approval workflow
+* Pagination
+* Payment history tracking
+* REST API support
+* MVC refactor
+* Role middleware
+
+---
+
+# 💡 What This Project Demonstrates
+
+* Multi-role authentication
+* CRUD operations
+* Session management
+* Database-driven UI
+* Dynamic fee auto-fetch
+* Modular PHP structure
+* Admin control system
+
+---
+
+# 👨‍💻 Author
+
+**Prem B**
+
+If you found this project useful, consider giving it a ⭐ on GitHub.
+
+---
+
+Just say the word 😎
